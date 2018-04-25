@@ -23,12 +23,19 @@ import Modelo.*;
  */
 public class EquipoDAOImpl implements EquipoDAO {
     /* SQL to insert data */
+    
     private static final String SQL_INSERT =
         "INSERT INTO Equipo ("
         + "nombre, propietarioCURP, coachCURP, estadio"
         + ") VALUES (?, ?, ?, ?)";
 
     /* SQL to select data */
+    
+        
+    private static final String SQL_SELECT_ALL=
+            "SELECT *"
+            + "FROM Equipo";
+        
     private static final String SQL_SELECT =
         "SELECT "
         + "nombre, propietarioCURP, coachCURP, estadio "
@@ -83,6 +90,25 @@ public class EquipoDAOImpl implements EquipoDAO {
             List results = getResults(rs);
             if (results.size() > 0)
                 return (Equipo) results.get(0);
+            else
+                return null;
+        }finally {
+            close(rs);
+            close(ps);
+        }
+    }
+    
+        
+    public List load(Connection conn) throws SQLException {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = conn.prepareStatement(SQL_SELECT_ALL);
+            
+            rs = ps.executeQuery();
+            List results = getResults(rs);
+            if (results.size() > 0)
+                return results;
             else
                 return null;
         }finally {

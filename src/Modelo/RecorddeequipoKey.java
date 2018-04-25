@@ -15,6 +15,15 @@ public class RecorddeequipoKey implements java.io.Serializable, Cloneable {
     protected String nombreequipo;
 
     /* temporada */
+    
+    public RecorddeequipoKey() {
+    }
+
+    public RecorddeequipoKey(String temporada, String nombreequipo) {
+        this.temporada = temporada;
+        this.nombreequipo = nombreequipo;
+    }
+
     public String getTemporada() {
         return temporada;
     }

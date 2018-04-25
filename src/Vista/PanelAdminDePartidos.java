@@ -5,10 +5,10 @@
  */
 package Vista;
 //import Interfaces.InterfazAdministrarPartidos;
+import Interfaces.InterfazAdministrarEquipo;
+import Interfaces.InterfazAdministrarPartidos;
 import java.sql.Timestamp;
-￼
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -18,6 +18,7 @@ import javax.swing.SpinnerDateModel;
 import javax.swing.table.DefaultTableModel;
 import Modelo.Equipo;
 import Modelo.Partido;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -25,7 +26,7 @@ import Modelo.Partido;
  */
 public class PanelAdminDePartidos extends JPanel {
 
-    InterfazAdministrarLigaDeAmericano unaInterfazAdministrarLigaDeAmericano;
+    private InterfazAdministrarPartidos unaInterfazAdministrarPartidos;
     private DefaultTableModel modelo;
     /**
      * Creates new form PanelAdminDeLiga
@@ -35,9 +36,9 @@ public class PanelAdminDePartidos extends JPanel {
     public PanelAdminDePartidos(){
         
     }
-   public PanelAdminDePartidos(InterfazAdministrarLigaDeAmericano unaInterfazAdministrarLigaDeAmericano) {
+   public PanelAdminDePartidos(InterfazAdministrarPartidos unaInterfazAdministrarLigaDeAmericano) {
         
-        this.unaInterfazAdministrarLigaDeAmericano = unaInterfazAdministrarLigaDeAmericano;
+        this.unaInterfazAdministrarPartidos = unaInterfazAdministrarLigaDeAmericano;
         
         initComponents();
         modelo = (DefaultTableModel)tablaPartidos.getModel();
@@ -78,14 +79,15 @@ public class PanelAdminDePartidos extends JPanel {
         jLabel18 = new javax.swing.JLabel();
         txtMarcadorLocal = new javax.swing.JTextField();
         txtMarcadorVisitante = new javax.swing.JTextField();
-        btnAdminUsers = new javax.swing.JButton();
         comboEquipoLocal = new javax.swing.JComboBox<>();
         comboEquipoVisitante = new javax.swing.JComboBox<>();
-        dateChooser = new com.toedter.calendar.JDateChooser();
         checkFinalizado = new javax.swing.JCheckBox();
         jScrollPane2 = new javax.swing.JScrollPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaPartidos = new javax.swing.JTable();
+        dateChooser = new com.toedter.calendar.JDateChooser();
+        btnVolver = new javax.swing.JButton();
+        btnAsignarEspia = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -167,16 +169,6 @@ public class PanelAdminDePartidos extends JPanel {
         jLabel18.setForeground(new java.awt.Color(153, 51, 0));
         jLabel18.setText("Marcador Visitante");
 
-        btnAdminUsers.setBackground(new java.awt.Color(153, 51, 0));
-        btnAdminUsers.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        btnAdminUsers.setForeground(new java.awt.Color(255, 255, 255));
-        btnAdminUsers.setText("Adm. usuarios");
-        btnAdminUsers.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdminUsersActionPerformed(evt);
-            }
-        });
-
         comboEquipoLocal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         comboEquipoVisitante.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -211,6 +203,20 @@ public class PanelAdminDePartidos extends JPanel {
 
         jScrollPane2.setViewportView(jScrollPane1);
 
+        btnVolver.setText("Volver");
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
+
+        btnAsignarEspia.setText("Asignar Espia");
+        btnAsignarEspia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAsignarEspiaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -243,8 +249,8 @@ public class PanelAdminDePartidos extends JPanel {
                                     .addComponent(jLabel11))
                                 .addGap(100, 100, 100)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(dateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(spinnnerHora, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(spinnnerHora, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(dateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel12)
                                 .addGap(38, 38, 38)
@@ -253,33 +259,42 @@ public class PanelAdminDePartidos extends JPanel {
                                 .addComponent(jLabel18)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtMarcadorVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(btnAgregar)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnActualizar)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnBorrar))
-                            .addComponent(checkFinalizado))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                    .addComponent(btnAgregar)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(btnActualizar)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(btnBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                    .addComponent(checkFinalizado)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btnAsignarEspia, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 625, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnAdminUsers))
-                    .addComponent(jLabel1)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 839, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel15)
-                        .addGap(55, 55, 55)
-                        .addComponent(jLabel16)))
-                .addContainerGap(97, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel15)
+                                .addGap(55, 55, 55)
+                                .addComponent(jLabel16)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jLabel1)
-                .addGap(4, 4, 4)
+                .addGap(2, 2, 2)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
-                    .addComponent(jLabel16))
+                    .addComponent(jLabel16)
+                    .addComponent(btnVolver))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -304,13 +319,10 @@ public class PanelAdminDePartidos extends JPanel {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(spinnnerHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel10))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(14, 14, 14)
-                                .addComponent(jLabel11))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel11)
+                            .addComponent(dateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(12, 12, 12)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel12)
@@ -319,18 +331,18 @@ public class PanelAdminDePartidos extends JPanel {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtMarcadorVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel18))
-                        .addGap(18, 18, 18)
-                        .addComponent(checkFinalizado)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(checkFinalizado)
+                            .addComponent(btnAsignarEspia))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnActualizar)
                             .addComponent(btnBorrar)
                             .addComponent(btnAgregar))
                         .addContainerGap(24, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAdminUsers))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
 
@@ -348,7 +360,7 @@ public class PanelAdminDePartidos extends JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -365,7 +377,7 @@ public class PanelAdminDePartidos extends JPanel {
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
 
-        unaInterfazAdministrarLigaDeAmericano.borrar(txtTemporada.getText(),Integer.parseInt(txtJornada.getText()),
+        unaInterfazAdministrarPartidos.borrar(txtTemporada.getText(),Integer.parseInt(txtJornada.getText()),
             (String)comboEquipoLocal.getSelectedItem(),(String)comboEquipoVisitante.getSelectedItem());
     }//GEN-LAST:event_btnBorrarActionPerformed
 
@@ -374,6 +386,13 @@ public class PanelAdminDePartidos extends JPanel {
         SimpleDateFormat dcn = new SimpleDateFormat("yyyy-MM-dd");
         String date = dcn.format(dateChooser.getDate() );
         String []s = date.split("-");
+        byte partidoFinalizado;
+        
+        if(checkFinalizado.isSelected())
+            partidoFinalizado=1;
+        else
+            partidoFinalizado = 0;
+                
 
         java.sql.Date fecha;
 
@@ -381,18 +400,22 @@ public class PanelAdminDePartidos extends JPanel {
         Date lafecha =(Date) spinnnerHora.getValue();
 
         java.sql.Timestamp hora  = new Timestamp(lafecha.getTime());
+        System.out.println("HORA"+hora.toString());
 
         fecha = new java.sql.Date(Integer.parseInt(s[0])-1900, Integer.parseInt(s[1])-1, Integer.parseInt(s[2]));
+        
+        
 
-        unaInterfazAdministrarLigaDeAmericano.actualizar(txtTemporada.getText(),Integer.parseInt(txtJornada.getText()),
+        unaInterfazAdministrarPartidos.actualizar(txtTemporada.getText(),Integer.parseInt(txtJornada.getText()),
             (String)comboEquipoLocal.getSelectedItem(),(String)comboEquipoVisitante.getSelectedItem(), fecha, hora,
-            Integer.parseInt(txtMarcadorLocal.getText()),Integer.parseInt(txtMarcadorVisitante.getText()),checkFinalizado.isSelected());
+            Integer.parseInt(txtMarcadorLocal.getText()),Integer.parseInt(txtMarcadorVisitante.getText()),partidoFinalizado);
         
         
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
 
+        byte partidoFinalizado;
         SimpleDateFormat dcn = new SimpleDateFormat("yyyy-MM-dd");
         String date = dcn.format(dateChooser.getDate() );
         String []s = date.split("-");
@@ -408,8 +431,14 @@ public class PanelAdminDePartidos extends JPanel {
 
         System.out.println("PARTIDO FINALIZADO "+checkFinalizado.isSelected());
         
-        unaInterfazAdministrarLigaDeAmericano.agregar(txtTemporada.getText(),Integer.parseInt(txtJornada.getText()), (String)comboEquipoLocal.getSelectedItem(),
-            (String)comboEquipoVisitante.getSelectedItem(), fecha, hora,checkFinalizado.isSelected());
+        if(checkFinalizado.isSelected())
+            partidoFinalizado=1;
+        else
+            partidoFinalizado=0;
+        
+        
+        unaInterfazAdministrarPartidos.agregar(txtTemporada.getText(),Integer.parseInt(txtJornada.getText()), (String)comboEquipoLocal.getSelectedItem(),
+            (String)comboEquipoVisitante.getSelectedItem(), fecha, hora,partidoFinalizado);
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void tablaPartidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPartidosMouseClicked
@@ -421,7 +450,9 @@ public class PanelAdminDePartidos extends JPanel {
         comboEquipoLocal.setSelectedItem((String)tablaPartidos.getValueAt(i, 2));
         comboEquipoVisitante.setSelectedItem((String)tablaPartidos.getValueAt(i, 3));
         dateChooser.setDate((Date)tablaPartidos.getValueAt(i, 4));
+        
         spinnnerHora.setValue((Date)tablaPartidos.getValueAt(i, 5));
+        
         txtMarcadorLocal.setText(String.valueOf(tablaPartidos.getValueAt(i, 6)));
         txtMarcadorVisitante.setText(String.valueOf(tablaPartidos.getValueAt(i, 7)));
     }//GEN-LAST:event_tablaPartidosMouseClicked
@@ -430,18 +461,25 @@ public class PanelAdminDePartidos extends JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTemporadaActionPerformed
 
-    private void btnAdminUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminUsersActionPerformed
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        unaInterfazAdministrarPartidos.regresarAlPanelPadre();
+    }//GEN-LAST:event_btnVolverActionPerformed
 
+    private void btnAsignarEspiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarEspiaActionPerformed
 
-        unaInterfazAdministrarLigaDeAmericano.irA();
-    }//GEN-LAST:event_btnAdminUsersActionPerformed
+        unaInterfazAdministrarPartidos.cogelarCampos(true);
+        unaInterfazAdministrarPartidos.asignarEspiaAPartido();
+        
+        
+    }//GEN-LAST:event_btnAsignarEspiaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
-    private javax.swing.JButton btnAdminUsers;
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnAsignarEspia;
     private javax.swing.JButton btnBorrar;
+    private javax.swing.JButton btnVolver;
     private javax.swing.JCheckBox checkFinalizado;
     private javax.swing.JComboBox<String> comboEquipoLocal;
     private javax.swing.JComboBox<String> comboEquipoVisitante;
@@ -472,7 +510,8 @@ public class PanelAdminDePartidos extends JPanel {
 
 public void actualizarTabla(List<Partido> partidos){
         
-                modelo.setRowCount(0);
+                
+    modelo.setRowCount(0);
 			
 	Object[] partido = new Object[9];
             if (partidos!=null) {
@@ -492,21 +531,13 @@ public void actualizarTabla(List<Partido> partidos){
 			modelo.addRow(partido);
 			
 		}
-                        
-                        
-                        
-                tablaPartidos.setModel(modelo);
-                
-            }
-		
 
-		
-        
-        
+                tablaPartidos.setModel(modelo);
+            }
+
     }
         
     public void cargarComboEquipos(List<Equipo> equipos ){
-    
                         
             if (equipos == null) {
                 System.out.println("FUUUUUUUUCK"
@@ -522,5 +553,33 @@ public void actualizarTabla(List<Partido> partidos){
             comboEquipoVisitante.addItem(equipos.get(i).getNombre());
             
         }
+    }
+    
+    public void congelarCampos(boolean congelar){
+        
+        txtJornada.setEnabled(congelar);
+        txtTemporada.setEnabled(congelar);
+        dateChooser.setEnabled(congelar);
+        spinnnerHora.setEnabled(congelar);
+        comboEquipoLocal.setEnabled(congelar);
+        comboEquipoVisitante.setEnabled(congelar);
+        
+    }
+    
+    public Object[] retornarValoresDePartido(){
+        
+        Object []partido = new Object[5];
+
+        partido[0]=txtTemporada.getText();
+        partido[1]=txtJornada.getText();
+        
+        partido[2]=comboEquipoLocal.getSelectedItem();
+        partido[3]=comboEquipoVisitante.getSelectedItem();
+        partido[4]=dateChooser.getDate();
+        
+                
+        
+        return partido;
+        
     }
 }

@@ -7,6 +7,8 @@
 
 package Modelo;
 
+import java.util.Date;
+
 /*
  * For Table Partido
  */
@@ -38,9 +40,24 @@ public class Partido implements java.io.Serializable, Cloneable {
     protected int marcadorvisitante;
 
     /* partidoFinalizado */
-    protected byte partidofinalizado;
+    protected  byte partidofinalizado;
 
     /* Return the key object. */
+    
+    public Partido() {
+    }
+
+    public Partido(String temporada, int nojornada, String equipolocal, String equipovisitante, Date fecha, Date hora, byte partidofinalizado) {
+        this.temporada = temporada;
+        this.nojornada = nojornada;
+        this.equipolocal = equipolocal;
+        this.equipovisitante = equipovisitante;
+        this.fecha = fecha;
+        this.hora = hora;
+        
+        this.partidofinalizado = partidofinalizado;
+    }
+
     public PartidoKey getKeyObject() {
         return _key;
     }

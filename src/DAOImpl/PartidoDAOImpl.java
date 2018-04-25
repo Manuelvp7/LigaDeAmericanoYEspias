@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.ArrayList;
 import DAO.PartidoDAO;
 import Modelo.*;
+import java.sql.Timestamp;
+import java.util.Date;
 /**
  * This class provides methods to populate DB Table of Partido
  */
@@ -62,7 +64,8 @@ public class PartidoDAOImpl implements PartidoDAO {
     /* SQL to update data */
     private static final String SQL_UPDATE =
         "UPDATE Partido SET "
-        + "fecha = ?, hora = ?, marcadorLocal = ?, marcadorVisitante = ?, partidoFinalizado = ? "
+        + "fecha = ?, hora = ?, marcadorLocal = ?, "    
+        + "marcadorVisitante = ?, partidoFinalizado = ? "
         + "WHERE "
         + "temporada = ? AND noJornada = ? AND equipoLocal = ? AND equipoVisitante = ?";
 
@@ -89,13 +92,18 @@ public class PartidoDAOImpl implements PartidoDAO {
                 ps.setDate(5, new java.sql.Date(bean.getFecha().getTime()));
             else
                 ps.setNull(5, Types.DATE);
-            if (bean.getHora() != null)
-                ps.setDate(6, new java.sql.Date(bean.getHora().getTime()));
+            if (bean.getHora() != null){
+                Date fechaAux = bean.getHora();
+                Timestamp time = new Timestamp(fechaAux.getTime());
+                ps.setTimestamp(6, time);
+            }
+                
             else
                 ps.setNull(6, Types.DATE);
             ps.setInt(7, bean.getMarcadorlocal());
             ps.setInt(8, bean.getMarcadorvisitante());
             ps.setByte(9, bean.getPartidofinalizado());
+            System.out.println("HORA AL HACER CREATE"+bean.getHora().getTime());
             ps.executeUpdate();
         }finally {
             close(ps);
@@ -121,6 +129,25 @@ public class PartidoDAOImpl implements PartidoDAO {
             List results = getResults(rs);
             if (results.size() > 0)
                 return (Partido) results.get(0);
+            else
+                return null;
+        }finally {
+            close(rs);
+            close(ps);
+        }
+    }
+    
+       
+    public List<Partido> load(Connection conn) throws SQLException {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = conn.prepareStatement(SQL_SELECT_PARTIDOS_PENDIENTES);
+
+            rs = ps.executeQuery();
+            List results = getResults(rs);
+            if (results.size() > 0)
+                return results;
             else
                 return null;
         }finally {
@@ -215,8 +242,13 @@ public class PartidoDAOImpl implements PartidoDAO {
                 ps.setDate(1, new java.sql.Date(bean.getFecha().getTime()));
             else
                 ps.setNull(1, Types.DATE);
-            if (bean.getHora() != null)
-                ps.setDate(2, new java.sql.Date(bean.getHora().getTime()));
+            if (bean.getHora() != null){
+
+                Date fechaAux = bean.getHora();
+                Timestamp time = new Timestamp(fechaAux.getTime());
+                ps.setTimestamp(2, time);                
+            }
+                
             else
                 ps.setNull(2, Types.DATE);
             ps.setInt(3, bean.getMarcadorlocal());
@@ -246,6 +278,7 @@ public class PartidoDAOImpl implements PartidoDAO {
             ps.setInt(2, key.getNojornada());
             ps.setString(3, key.getEquipolocal());
             ps.setString(4, key.getEquipovisitante());
+            System.out.println("PS "+ps.toString());
             ps.executeUpdate();
         }finally {
             close(ps);
@@ -267,15 +300,17 @@ public class PartidoDAOImpl implements PartidoDAO {
             bean.setEquipolocal(rs.getString("equipoLocal"));
             bean.setEquipovisitante(rs.getString("equipoVisitante"));
             bean.setFecha(rs.getDate("fecha"));
-            bean.setHora(rs.getDate("hora"));
+            bean.setHora(rs.getTime("hora"));
             bean.setMarcadorlocal(rs.getInt("marcadorLocal"));
             bean.setMarcadorvisitante(rs.getInt("marcadorVisitante"));
             bean.setPartidofinalizado(rs.getByte("partidoFinalizado"));
+            
             results.add(bean);
         }
         return results;
     }
-            protected List<Object[]> getResultsProximaFechas(ResultSet rs) throws SQLException {
+            
+    protected List<Object[]> getResultsProximaFechas(ResultSet rs) throws SQLException {
         
         
         System.out.println("AQUI HAY DE DONDE AGARRAR PROXIMAS FECHAS");

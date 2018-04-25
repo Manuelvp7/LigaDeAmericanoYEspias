@@ -3,12 +3,15 @@ package Control;
 import Conexiones.ConexionLmfaEspias;
 
 import DAOImpl.CategoriausuarioDAOImpl;
+import DAOImpl.EspiasDAOImpl;
 
 import DAOImpl.UsuarioDAOImpl;
 import Interfaces.InterfazAdministrador;
 
 
 import Interfaces.InterfazVistaControladorAdministrarUsuarios;
+import Modelo.Categoriausuario;
+import Modelo.Espias;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -39,6 +42,7 @@ public class ControladorUsuarios implements InterfazVistaControladorAdministrarU
 	//private ConsultorBD consultor;
 	//private InsertorBD insertor;
         private CategoriausuarioDAOImpl unaCategoriausuarioDAOImpl;
+        EspiasDAOImpl unEspiasDAOImpl ;
         
         private UsuarioDAOImpl unUsuarioDAOImpl;
 
@@ -47,7 +51,7 @@ public class ControladorUsuarios implements InterfazVistaControladorAdministrarU
         
             
     
-        int tipoInterface;
+        
 
         private Interfaces.InterfazAdministrador unaInterfazAdministrador;
                     
@@ -57,10 +61,13 @@ public class ControladorUsuarios implements InterfazVistaControladorAdministrarU
 	public ControladorUsuarios(InterfazAdministrador unaInterfazAdministrador){
 
             unUsuarioDAOImpl = new UsuarioDAOImpl();
+            unEspiasDAOImpl = new EspiasDAOImpl();
             panelUsuariosDelSistema = new PanelAdminUsuarioDelSistema(this);
             unaCategoriausuarioDAOImpl = new CategoriausuarioDAOImpl();
             conn = new ConexionLmfaEspias();
             cargarTablaUsuarios();
+            cargarCategorias();
+            
             this.unaInterfazAdministrador = unaInterfazAdministrador;
             
             
@@ -85,14 +92,14 @@ public class ControladorUsuarios implements InterfazVistaControladorAdministrarU
             
         }
 
-    public void agregar(String userName,String password) {
+    public void agregar(String userName,String password,String categoria) {
         
             try {
                 
                 
                 
                 unUsuario = new Usuario();
-                unUsuario.setCategoriausuario("ADMINISTRADOR");
+                unUsuario.setCategoriausuario(categoria);
                 unUsuario.setNombreusuario(userName);
                 unUsuario.setContrasena(password); 
                 unUsuarioDAOImpl.create(unUsuario,conn.crearConexion());
@@ -130,14 +137,14 @@ public class ControladorUsuarios implements InterfazVistaControladorAdministrarU
 
 
     @Override
-    public void actualizar(String userName,String password) {
+    public void actualizar(String userName,String password,String categoria) {
         
         
         
             try {
                 
                 Usuario unUsuario = new Usuario();
-                unUsuario.setCategoriausuario("ADMINISTRADOR");
+                unUsuario.setCategoriausuario(categoria);
                 unUsuario.setContrasena(password);
                 unUsuario.setNombreusuario(userName);
                 
@@ -160,28 +167,50 @@ public class ControladorUsuarios implements InterfazVistaControladorAdministrarU
     @Override
     public void regresar(){
         
-        switch(tipoInterface){
-            
-            case 1:{
-                
-                unaInterfazAdministrador.regresarAlPanelPadre();
-                
-                break;
-            }
-            case 2:{
-                unaInterfazAdministrador.regresarAlPanelPadre();
-                break;
-                
-            }
-            case 3:{
-                //unaInterfazTableroDeMercado.regresarAlPanelPadre();
-                break;
-            }
-        }
-        
-   
+        unaInterfazAdministrador.regresarAlPanelPadre();
     }
     
+        
+    public void cargarCategorias(){
+        
+        
+        try {
+            List<Categoriausuario> categorias;
+            
+            categorias = unaCategoriausuarioDAOImpl.loadCategorias(Conexiones.ConexionLmfaEspias.crearConexion());
+            
+            if (categorias!=null) {
+
+                System.out.println("VANOS A IMPRIMIR CATEGORIAS");
+                for (Categoriausuario categoria : categorias) {
+                
+                    System.out.println("CATE "+categoria.getCategoria());
+                }
+                panelUsuariosDelSistema.cargarComboEquipos(categorias);
+            }   
+
+        
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorPartido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
+
+    @Override
+    public void agregarEspia(String userName) {
+            try {
+                Espias unEspia  = new Espias();
+                unEspia.setAlias(userName);
+                unEspia.setEstado((byte)0);
+                unEspia.setGenero(JOptionPane.showInputDialog("Ingrese el genero M/F"));
+                unEspiasDAOImpl.create(unEspia, Conexiones.ConexionEspias.crearConexion());
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(ControladorUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+    }
     
 
 

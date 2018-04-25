@@ -23,18 +23,18 @@ public class ConexionEspias {
 	
         try{
                     
-                        //myConn = DriverManager.getConnection("jdbc:mysql://10.100.76.236/lmfa?autoReconnect=true&useSSL=false", "user1" , "12345678");
-			//myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/lmfa?autoReconnect=true&useSSL=false", "root" , "manolito130");
-			myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/espias?autoReconnect=true&useSSL=false", "root" , "manolito130");
-                        if (myConn!=null) {
-                    return myConn;
+            myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/espias?autoReconnect=true&useSSL=false", "root" , "manolito130");
+            
+            if (myConn!=null) {
+                return myConn;
             }
 
-		}
-		catch (Exception exc) {
-				exc.printStackTrace();
-			}
-                
+        }
+	
+        catch (Exception exc) {
+	
+            exc.printStackTrace();
+        }        
         return null;
 			
 		}

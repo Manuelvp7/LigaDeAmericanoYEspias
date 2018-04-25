@@ -32,7 +32,7 @@ public class CategoriausuarioDAOImpl implements CategoriausuarioDAO {
     private static final String SQL_SELECT_ALL =
         "SELECT "
         + "categoria "
-        + "FROM CategoriaUsuario";
+        + "FROM categoriaUsuario";
     
     private static final String SQL_SELECT =
         "SELECT "
@@ -93,14 +93,14 @@ public class CategoriausuarioDAOImpl implements CategoriausuarioDAO {
     }
     
         
-    public List<Object[]>loadCategorias(Connection conn) throws SQLException {
+    public List<Categoriausuario>loadCategorias(Connection conn) throws SQLException {
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
             ps = conn.prepareStatement(SQL_SELECT_ALL);
             
             rs = ps.executeQuery();
-            List results = getResultsOfCategoria(rs);
+            List results = getResults(rs);
             if (results.size() > 0)
                 return results;
             else
@@ -157,6 +157,7 @@ public class CategoriausuarioDAOImpl implements CategoriausuarioDAO {
             Categoriausuario bean = new Categoriausuario();
             bean.setCategoria(rs.getString("categoria"));
             results.add(bean);
+            System.out.println("BEAN"+bean.toString());
         }
         return results;
     }
@@ -167,7 +168,7 @@ public class CategoriausuarioDAOImpl implements CategoriausuarioDAO {
         while (rs.next()) {
             Object registro;
             registro = (rs.getString("categoria"));
-            System.out.println(registro);
+            
             results.add(registro);
         }
         return results;

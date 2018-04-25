@@ -17,7 +17,7 @@ public class ConexionLmfaEspias {
     
     
         
-    public Connection crearConexion() {
+    public static Connection crearConexion() {
         Connection myConn = null;
         try{       
             myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/lmfEspias?autoReconnect=true&useSSL=false", "root" , "manolito130");

@@ -5,6 +5,7 @@
  */
 package Vista;
 import Interfaces.InterfazVistaControladorAdministrarUsuarios;
+import Modelo.Categoriausuario;
 import Modelo.Usuario;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -68,6 +69,7 @@ private InterfazVistaControladorAdministrarUsuarios vcau;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel12 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -81,6 +83,12 @@ private InterfazVistaControladorAdministrarUsuarios vcau;
         jLabel11 = new javax.swing.JLabel();
         txtPass = new javax.swing.JTextField();
         btnVolver = new javax.swing.JButton();
+        comboCategoria = new javax.swing.JComboBox<>();
+        jLabel13 = new javax.swing.JLabel();
+
+        jLabel12.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(153, 51, 0));
+        jLabel12.setText("Password");
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -186,6 +194,12 @@ private InterfazVistaControladorAdministrarUsuarios vcau;
             }
         });
 
+        comboCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel13.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(153, 51, 0));
+        jLabel13.setText("TIpo De Usuario");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -209,11 +223,13 @@ private InterfazVistaControladorAdministrarUsuarios vcau;
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel11)
-                            .addComponent(jLabel10))
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel13))
                         .addGap(122, 122, 122)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtPass, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(comboCategoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtPass, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
+                            .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE))))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -222,19 +238,28 @@ private InterfazVistaControladorAdministrarUsuarios vcau;
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel11)
-                        .addGap(186, 186, 186)
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11)))
+                    .addComponent(jLabel10))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(166, 166, 166)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 162, Short.MAX_VALUE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel13)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(comboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgrega)
                     .addComponent(btnBorrar)
@@ -291,7 +316,7 @@ private InterfazVistaControladorAdministrarUsuarios vcau;
 
         
 
-        vcau.actualizar(txtUsername.getText(),txtPass.getText());
+        vcau.actualizar(txtUsername.getText(),txtPass.getText(),String.valueOf(comboCategoria.getSelectedItem()));
         limipiarCampos();
         
     }//GEN-LAST:event_btnActualizarActionPerformed
@@ -305,7 +330,11 @@ private InterfazVistaControladorAdministrarUsuarios vcau;
 
     private void btnAgregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregaActionPerformed
 
-        vcau.agregar(txtUsername.getText(),txtPass.getText());
+        String categoria = String.valueOf(comboCategoria.getSelectedItem());
+        if(categoria.equals("ESPIA")){
+            vcau.agregarEspia(txtUsername.getText());
+        }
+        vcau.agregar(txtUsername.getText(),txtPass.getText(),String.valueOf(comboCategoria.getSelectedItem()));
         vcau.cargarTablaUsuarios();
         limipiarCampos();
         
@@ -331,9 +360,12 @@ private InterfazVistaControladorAdministrarUsuarios vcau;
     private javax.swing.JButton btnAgrega;
     private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnVolver;
+    private javax.swing.JComboBox<String> comboCategoria;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -345,6 +377,22 @@ private InterfazVistaControladorAdministrarUsuarios vcau;
     public void limipiarCampos(){
         txtPass.setText("");
         txtUsername.setText("");
+    }
+    
+        
+    public void cargarComboEquipos(List<Categoriausuario> categorias ){
+                        
+            if (categorias == null) {
+                System.out.println("FUUUUUUUUCK"
+                        + "");
+            }
+            comboCategoria.removeAllItems();
+            //System.out.println("PRIMER ELEMENTO"+categorias.get(0).getCategoria());
+
+        for (int i = 0; i < categorias.size() ; i++) {
+            comboCategoria.addItem(categorias.get(i).getCategoria());
+
+        }
     }
     
 

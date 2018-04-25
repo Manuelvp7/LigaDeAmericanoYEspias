@@ -7,6 +7,8 @@
 
 package Modelo;
 
+import java.util.Date;
+
 /*
  * For Table espiaTienePartido
  */
@@ -35,6 +37,21 @@ public class Espiatienepartido implements java.io.Serializable, Cloneable {
     protected String reporte;
 
     /* Return the key object. */
+
+    public Espiatienepartido() {
+    }
+
+    public Espiatienepartido(String aliasespia, String temporada, int nojornada, String equipolocal, String equipovisitante, Date fecha) {
+        this.aliasespia = aliasespia;
+        this.temporada = temporada;
+        this.nojornada = nojornada;
+        this.equipolocal = equipolocal;
+        this.equipovisitante = equipovisitante;
+        this.fecha = fecha;
+    
+    }
+    
+    
     public EspiatienepartidoKey getKeyObject() {
         return _key;
     }

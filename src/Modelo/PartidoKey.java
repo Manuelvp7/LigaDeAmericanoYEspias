@@ -21,6 +21,18 @@ public class PartidoKey implements java.io.Serializable, Cloneable {
     protected String equipovisitante;
 
     /* temporada */
+
+    public PartidoKey() {
+    }
+
+    public PartidoKey(String temporada, int nojornada, String equipolocal, String equipovisitante) {
+        this.temporada = temporada;
+        this.nojornada = nojornada;
+        this.equipolocal = equipolocal;
+        this.equipovisitante = equipovisitante;
+    }
+    
+    
     public String getTemporada() {
         return temporada;
     }

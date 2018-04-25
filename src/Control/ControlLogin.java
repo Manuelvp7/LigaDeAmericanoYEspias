@@ -26,7 +26,7 @@ import Modelo.Usuario;
 import Modelo.UsuarioKey;
 
 import Vista.PanelLogin;
-import Vista.panelAdminEquipo;
+import Vista.PanelAdminEquipo;
 
 /**
  *
@@ -67,7 +67,7 @@ public class ControlLogin implements InterfazLoginControl{
     
             
     public void cargarComboTipoDeUsuarios(){
-            List<Object[]> categoriaDeUsuarios;
+            List<Modelo.Categoriausuario> categoriaDeUsuarios;
             try {
                 categoriaDeUsuarios = unaCategoriausuarioDAOImpl.loadCategorias(conn.crearConexion());
                 if (categoriaDeUsuarios!=null) {
@@ -124,6 +124,7 @@ public class ControlLogin implements InterfazLoginControl{
     }
     
     public void cambiarPanel(JPanel unPanel){
+        
         
         miFrame.getContentPane().removeAll();
         miFrame.getContentPane().invalidate();

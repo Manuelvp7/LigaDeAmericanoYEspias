@@ -23,7 +23,7 @@ import javax.swing.JPanel;
 import Modelo.Partido;
 import Modelo.Recorddeequipo;
 
-import Vista.panelAdminEquipo;
+import Vista.PanelAdminEquipo;
 import Interfaces.InterfazAdministrador;
 
 /**
@@ -40,11 +40,12 @@ public class ControladorAdmin implements InterfazAdministrador{
     
     
     private ControladorUsuarios unControladorUsuarios;
+    private ControladorPartido unControladorPartido;
     
     private InterfazLoginControl unaInterfazLoginControl;
     
     //PANEL
-    private panelAdminEquipo unPanelAdminEquipo;
+    private PanelAdminEquipo unPanelAdminEquipo;
     
     //DAO
     private PartidoDAOImpl unPartidoDAOImpl;
@@ -60,10 +61,11 @@ public class ControladorAdmin implements InterfazAdministrador{
         this.unaInterfazLoginControl = unaInterfazLoginControl;
         unPartidoDAOImpl = new PartidoDAOImpl();
         unRecorddeequipoDAOImpl = new RecorddeequipoDAOImpl();
-        unPanelAdminEquipo = new panelAdminEquipo(this);        
+        unPanelAdminEquipo = new PanelAdminEquipo(this);        
         unPanelAdminEquipo.cargarTablas();
         unControladorUsuarios = new ControladorUsuarios(this);
         conn = new ConexionLmfa();
+        unControladorPartido = new ControladorPartido(unaInterfazLoginControl,unPanelAdminEquipo);
                         
                 
 
@@ -129,7 +131,7 @@ public class ControladorAdmin implements InterfazAdministrador{
         }
     }
 
-    public panelAdminEquipo getUnPanelAdminEquipo() {
+    public PanelAdminEquipo getUnPanelAdminEquipo() {
         return unPanelAdminEquipo;
     }
 
@@ -138,14 +140,14 @@ public class ControladorAdmin implements InterfazAdministrador{
         JPanel elPanel = null;
         switch ( panel){
             case 1:{
-                System.out.println("JAJAJAJAPANEL");
+                
                 elPanel= unControladorUsuarios.getPanelUsuariosDelSistema();
                 break;
             }
             case 2:{
                 
                 
-               // elPanel=unControladorPanelAdminDeMercancia.getUnPanelAdminDeMercancia();
+                elPanel=unControladorPartido.getPanelAdminDeLiga();
                 break;
             }
             case 3:{

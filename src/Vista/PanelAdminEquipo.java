@@ -20,7 +20,7 @@ import Interfaces.InterfazAdministrador;
  *
  * @author rosario
  */
-public class panelAdminEquipo extends javax.swing.JPanel {
+public class PanelAdminEquipo extends javax.swing.JPanel {
 
     
         
@@ -36,7 +36,7 @@ public class panelAdminEquipo extends javax.swing.JPanel {
 
 
     
-    public panelAdminEquipo(InterfazAdministrador unaInAdministrarEquipo) {
+    public PanelAdminEquipo(InterfazAdministrador unaInAdministrarEquipo) {
         
        
         this.unaInAdministrarEquipo = unaInAdministrarEquipo;
@@ -66,7 +66,7 @@ public class panelAdminEquipo extends javax.swing.JPanel {
     /**
      * Creates new form panelAdminEquipo
      */
-    public panelAdminEquipo() {
+    public PanelAdminEquipo() {
         
     }
 
