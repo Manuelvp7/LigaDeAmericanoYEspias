@@ -43,6 +43,7 @@ public class ControlLogin implements InterfazLoginControl{
     private  JFrame miFrame;
     
     private ControladorAdmin unControladorAdmin;
+    private ControladorEspia unControladorEspia;
     
     
     //private ControladorPartido unControladorPartido;
@@ -58,6 +59,8 @@ public class ControlLogin implements InterfazLoginControl{
         unUsuarioDAOImpl = new UsuarioDAOImpl();
         unaCategoriausuarioDAOImpl = new CategoriausuarioDAOImpl();                
         unPanelLogin = new PanelLogin(this);
+        
+        
         
         //cargarComboTipoDeUsuarios();
         ejecutarGUI();
@@ -91,7 +94,6 @@ public class ControlLogin implements InterfazLoginControl{
         
         try {
             resultado=unUsuarioDAOImpl.LoadUsuario(userName,pass, conn.crearConexion());
-            //System.out.println("jajajajaja");
             if(resultado!=null){
                 iniciarPanel(resultado);
             }else
@@ -100,8 +102,10 @@ public class ControlLogin implements InterfazLoginControl{
                  JOptionPane.showMessageDialog(null, "USUARIO Y CONTRASENIA NO VALIDOSSSSSSSSSSSSSSSS");
         }
     }
+    
     public void iniciarPanel(Object[] registro){
         
+        String aliasEspia = String.valueOf(registro[0]);
         String categoriaUsuario = String.valueOf(registro[2]);
         
         switch(categoriaUsuario){
@@ -112,9 +116,11 @@ public class ControlLogin implements InterfazLoginControl{
                 break;
             }
             case "ESPIA":{
+                
+                unControladorEspia = new ControladorEspia(this,aliasEspia);
+                cambiarPanel(unControladorEspia.getUnPanelEspia());
                
-                //unControladorPartido = new ControladorPartido(this);
-                //cambiarPanel(unControladorPartido.getPanelAdminDeLiga());
+                
                 break;
             }
  

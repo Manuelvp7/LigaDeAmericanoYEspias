@@ -1,5 +1,6 @@
 package Control;
 
+import Conexiones.ConexionEspias;
 import Conexiones.ConexionLmfaEspias;
 
 import DAOImpl.CategoriausuarioDAOImpl;
@@ -12,6 +13,7 @@ import Interfaces.InterfazAdministrador;
 import Interfaces.InterfazVistaControladorAdministrarUsuarios;
 import Modelo.Categoriausuario;
 import Modelo.Espias;
+import Modelo.EspiasKey;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -120,12 +122,19 @@ public class ControladorUsuarios implements InterfazVistaControladorAdministrarU
 
 
     @Override
-    public void borrar(String userName) {
+    public void borrar(String userName,boolean esEspia) {
         
      
             try {
                    UsuarioKey unKey = new UsuarioKey();
                    unKey.setNombreusuario(userName);
+                   EspiasKey espiaKey = new EspiasKey();
+                   espiaKey.setAlias(userName);
+                   if(esEspia){
+                       unEspiasDAOImpl.delete(espiaKey,ConexionEspias.crearConexion());
+                       
+                   }
+                   
                    unUsuarioDAOImpl.delete(unKey, conn.crearConexion());
                    cargarTablaUsuarios();
             } catch (SQLException ex) {

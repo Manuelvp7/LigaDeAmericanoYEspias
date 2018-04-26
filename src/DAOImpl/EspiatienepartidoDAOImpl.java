@@ -33,9 +33,9 @@ public class EspiatienepartidoDAOImpl implements EspiatienepartidoDAO {
     /* SQL to select data */
     private static final String SQL_SELECT =
         "SELECT "
-        + "aliasEspia, temporada, noJornada, equipoLocal, equipoVisitante, fecha, reporte "
+        + "aliasEspia,temporada, noJornada, equipoLocal, equipoVisitante, fecha, reporte "
         + "FROM espiaTienePartido WHERE "
-        + "aliasEspia = ? AND temporada = ? AND noJornada = ? AND equipoLocal = ? AND equipoVisitante = ?";
+        + "aliasEspia = ?";
 
     /* SQL to update data */
     private static final String SQL_UPDATE =
@@ -81,26 +81,35 @@ public class EspiatienepartidoDAOImpl implements EspiatienepartidoDAO {
      * @param conn      JDBC Connection.
      * @exception       SQLException if something is wrong.
      */
-    public Espiatienepartido load(EspiatienepartidoKey key, Connection conn) throws SQLException {
+    
+    
+    public Espiatienepartido load(String alias, Connection conn) throws SQLException {
         PreparedStatement ps = null;
         ResultSet rs = null;
+        
         try {
             ps = conn.prepareStatement(SQL_SELECT);
-            ps.setString(1, key.getAliasespia());
-            ps.setString(2, key.getTemporada());
-            ps.setInt(3, key.getNojornada());
-            ps.setString(4, key.getEquipolocal());
-            ps.setString(5, key.getEquipovisitante());
+            ps.setString(1, alias);
             rs = ps.executeQuery();
-            List results = getResults(rs);
-            if (results.size() > 0)
-                return (Espiatienepartido) results.get(0);
+            List<Espiatienepartido> results = getResults(rs);
+            if (results.size() > 0){
+                for (Espiatienepartido result : results) {
+                    System.out.println("ESPIA TIENE PARTIDO"+result.toString());
+                    if(result.getReporte()==null){
+                        System.out.println("ESPIA TIENE PARTIDO"+result.toString());
+                        return result;
+                    }
+                        
+                }
+            }
+                
             else
                 return null;
         }finally {
             close(rs);
             close(ps);
         }
+        return null;
     }
 
     /**
@@ -165,7 +174,14 @@ public class EspiatienepartidoDAOImpl implements EspiatienepartidoDAO {
             bean.setNojornada(rs.getInt("noJornada"));
             bean.setEquipolocal(rs.getString("equipoLocal"));
             bean.setEquipovisitante(rs.getString("equipoVisitante"));
-            bean.setFecha(rs.getDate("fecha"));
+            
+            
+            String []s = rs.getDate("fecha").toString().split("-");
+            java.sql.Date fecha;
+            fecha = new java.sql.Date(Integer.parseInt(s[0])-1900, Integer.parseInt(s[1])-1, Integer.parseInt(s[2]));
+            
+            
+            bean.setFecha(fecha);
             bean.setReporte(rs.getString("reporte"));
             results.add(bean);
         }

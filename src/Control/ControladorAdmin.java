@@ -66,12 +66,6 @@ public class ControladorAdmin implements InterfazAdministrador{
         unControladorUsuarios = new ControladorUsuarios(this);
         conn = new ConexionLmfa();
         unControladorPartido = new ControladorPartido(unaInterfazLoginControl,unPanelAdminEquipo);
-                        
-                
-
-  
-        
-
         
     }
 

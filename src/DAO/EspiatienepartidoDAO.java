@@ -30,7 +30,7 @@ public interface EspiatienepartidoDAO {
      * @param conn      JDBC Connection.
      * @exception       SQLException if something is wrong.
      */
-    public Espiatienepartido load(EspiatienepartidoKey key, Connection conn) throws SQLException;
+    public Espiatienepartido load(String key, Connection conn) throws SQLException;
 
     /**
      * Update a record in Database.

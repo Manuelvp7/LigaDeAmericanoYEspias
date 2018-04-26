@@ -54,6 +54,13 @@ public class EspiasDAOImpl implements EspiasDAO {
         + "genero = ?, estado = ? "
         + "WHERE "
         + "alias = ?";
+    
+        
+    private static final String SQL_UPDATE_ESTADO =
+        "UPDATE espias SET "
+        + "estado = 0 "
+        + "WHERE "
+        + "alias = ?";
 
     /* SQL to delete data */
     private static final String SQL_DELETE =
@@ -148,6 +155,18 @@ public class EspiasDAOImpl implements EspiasDAO {
      * @param conn   JDBC Connection.
      * @exception    SQLException if something is wrong.
      */
+    
+    public void update(String alias, Connection conn) throws SQLException {
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement(SQL_UPDATE_ESTADO);
+            ps.setString(1, alias);
+            ps.executeUpdate();
+        }finally {
+            close(ps);
+        }
+    }
+    
     public void update(Espias bean, Connection conn) throws SQLException {
         PreparedStatement ps = null;
         try {

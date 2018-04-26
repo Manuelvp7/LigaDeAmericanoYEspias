@@ -328,11 +328,7 @@ public class PartidoDAOImpl implements PartidoDAO {
             registro[1]=(rs.getTime("p.hora"));
             registro[2]=(rs.getString("p.equipoLocal"));
             registro[3]=(rs.getString("p.equipoVisitante"));
-
             registro[4]=(rs.getString("estadio"));
-
-   
-            
             results.add(registro);
         }
         return results;

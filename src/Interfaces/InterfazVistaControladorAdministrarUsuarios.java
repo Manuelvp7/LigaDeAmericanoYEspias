@@ -14,7 +14,7 @@ public interface InterfazVistaControladorAdministrarUsuarios {
     
     public void agregar(String userName,String Password,String categoria);
     public void agregarEspia(String userName);
-    public void borrar(String username);
+    public void borrar(String username,boolean esEspia);
     public void actualizar(String userName,String Password,String categoria);
     public void cargarTablaUsuarios();
     public void regresar();

@@ -386,7 +386,12 @@ public class PanelAdminDePartidos extends JPanel {
         SimpleDateFormat dcn = new SimpleDateFormat("yyyy-MM-dd");
         String date = dcn.format(dateChooser.getDate() );
         String []s = date.split("-");
+                
+        java.sql.Date fecha;
+        fecha = new java.sql.Date(Integer.parseInt(s[0])-1900, Integer.parseInt(s[1])-1, Integer.parseInt(s[2]));
+       
         byte partidoFinalizado;
+        
         
         if(checkFinalizado.isSelected())
             partidoFinalizado=1;
@@ -394,7 +399,7 @@ public class PanelAdminDePartidos extends JPanel {
             partidoFinalizado = 0;
                 
 
-        java.sql.Date fecha;
+        
 
         SimpleDateFormat hcn = new SimpleDateFormat("hh:mm");
         Date lafecha =(Date) spinnnerHora.getValue();
@@ -402,7 +407,7 @@ public class PanelAdminDePartidos extends JPanel {
         java.sql.Timestamp hora  = new Timestamp(lafecha.getTime());
         System.out.println("HORA"+hora.toString());
 
-        fecha = new java.sql.Date(Integer.parseInt(s[0])-1900, Integer.parseInt(s[1])-1, Integer.parseInt(s[2]));
+        
         
         
 
