@@ -67,8 +67,7 @@ public class ControlLogin implements InterfazLoginControl{
 
     }
     
-    
-            
+              
     public void cargarComboTipoDeUsuarios(){
             List<Modelo.Categoriausuario> categoriaDeUsuarios;
             try {
@@ -77,7 +76,7 @@ public class ControlLogin implements InterfazLoginControl{
                 
 //                   unPanelLogin.cargarComboTipoDeUsuarios(categoriaDeUsuarios);
                 }else{
-                    System.out.println("FUUUUUUUUUUUUUUUUUUUCK DESDE CARGAR CATEGORIA DE USUARIOS");
+                    
                 }
                 
             } catch (SQLException ex) {
