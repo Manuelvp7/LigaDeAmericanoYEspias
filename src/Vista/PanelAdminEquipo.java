@@ -267,7 +267,7 @@ public class PanelAdminEquipo extends javax.swing.JPanel {
                                     .addComponent(jLabel7)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel2)
-                                        .addGap(62, 62, 62)
+                                        .addGap(80, 80, 80)
                                         .addComponent(lblTemporada)))
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(40, 40, 40))
