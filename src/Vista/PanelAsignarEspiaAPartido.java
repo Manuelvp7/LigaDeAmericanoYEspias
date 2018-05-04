@@ -63,6 +63,12 @@ public class PanelAsignarEspiaAPartido extends javax.swing.JPanel {
 
         jButton1.setText("jButton1");
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        jScrollPane2.setBackground(new java.awt.Color(153, 51, 0));
+        jScrollPane2.setForeground(new java.awt.Color(255, 255, 255));
+        jScrollPane2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+
         tablaDeEspias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null},
@@ -76,6 +82,9 @@ public class PanelAsignarEspiaAPartido extends javax.swing.JPanel {
         ));
         jScrollPane2.setViewportView(tablaDeEspias);
 
+        btnAsignar.setBackground(new java.awt.Color(153, 51, 0));
+        btnAsignar.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        btnAsignar.setForeground(new java.awt.Color(255, 255, 255));
         btnAsignar.setText("Asignar");
         btnAsignar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,6 +92,9 @@ public class PanelAsignarEspiaAPartido extends javax.swing.JPanel {
             }
         });
 
+        btnCancelar.setBackground(new java.awt.Color(153, 51, 0));
+        btnCancelar.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -100,7 +112,7 @@ public class PanelAsignarEspiaAPartido extends javax.swing.JPanel {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnAsignar)
-                        .addGap(18, 18, 18)
+                        .addGap(26, 26, 26)
                         .addComponent(btnCancelar)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -109,7 +121,7 @@ public class PanelAsignarEspiaAPartido extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAsignar)
                     .addComponent(btnCancelar))
@@ -120,6 +132,9 @@ public class PanelAsignarEspiaAPartido extends javax.swing.JPanel {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
 
         unaInterfazAdministrarPartidos.cogelarCampos(false);
+        this.setVisible(false); 
+        new PanelLogin().setVisible(true); 
+        
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarActionPerformed
