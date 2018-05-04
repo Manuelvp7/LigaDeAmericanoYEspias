@@ -10,7 +10,6 @@ import DAOImpl.EquipoDAOImpl;
 import DAOImpl.PartidoDAOImpl;
 import DAOImpl.RecorddeequipoDAOImpl;
 import Interfaces.InterfazAdministrarEquipo;
-import com.sun.xml.internal.bind.v2.runtime.output.SAXOutput;
 import Interfaces.InterfazLoginControl;
 import java.sql.Connection;
 import java.sql.DriverManager;

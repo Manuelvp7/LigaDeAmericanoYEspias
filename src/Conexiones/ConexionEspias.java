@@ -23,7 +23,7 @@ public class ConexionEspias {
 	
         try{
                     
-            myConn = DriverManager.getConnection("jdbc:mysql://10.100.78.252/espias?autoReconnect=true&useSSL=false", "user1" , "12345678");
+            myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/espias?autoReconnect=true&useSSL=false", "root" , "manolito130");
             
             if (myConn!=null) {
                 return myConn;

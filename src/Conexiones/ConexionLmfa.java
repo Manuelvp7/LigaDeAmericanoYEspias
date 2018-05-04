@@ -20,7 +20,7 @@ public class ConexionLmfa {
 
         Connection myConn = null;	
         try{            
-            myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/lmfa2?autoReconnect=true&useSSL=false", "root" , "manolito130");
+            myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/lmfa?autoReconnect=true&useSSL=false", "root" , "manolito130");
             if (myConn!=null) {
                 return myConn;
             }	
