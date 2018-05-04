@@ -129,7 +129,7 @@ public class PanelEspia extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton2)
-                        .addGap(18, 18, 18)
+                        .addGap(31, 31, 31)
                         .addComponent(jButton1)
                         .addGap(66, 66, 66))
                     .addGroup(layout.createSequentialGroup()
@@ -204,7 +204,7 @@ public class PanelEspia extends javax.swing.JPanel {
         // TODO add your handling code here:
         
        this.setVisible(false); 
-    new PanelLogin().setVisible(true); 
+            new PanelLogin().setVisible(true); 
     }//GEN-LAST:event_jButton2ActionPerformed
 
 
