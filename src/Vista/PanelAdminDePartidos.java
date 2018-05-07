@@ -28,6 +28,7 @@ public class PanelAdminDePartidos extends JPanel {
 
     private InterfazAdministrarPartidos unaInterfazAdministrarPartidos;
     private DefaultTableModel modelo;
+    private Partido partidoViejo;
     /**
      * Creates new form PanelAdminDeLiga
      */
@@ -393,6 +394,8 @@ public class PanelAdminDePartidos extends JPanel {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
 
+        
+        
         SimpleDateFormat dcn = new SimpleDateFormat("yyyy-MM-dd");
         String date = dcn.format(dateChooser.getDate() );
         String []s = date.split("-");
@@ -458,18 +461,29 @@ public class PanelAdminDePartidos extends JPanel {
 
     private void tablaPartidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPartidosMouseClicked
 
+         
+        partidoViejo= new Partido();
         int i = tablaPartidos.getSelectedRow();
 
-        txtTemporada.setText((String)tablaPartidos.getValueAt(i, 0));
-        txtJornada.setText(String.valueOf(tablaPartidos.getValueAt(i, 1)));
-        comboEquipoLocal.setSelectedItem((String)tablaPartidos.getValueAt(i, 2));
-        comboEquipoVisitante.setSelectedItem((String)tablaPartidos.getValueAt(i, 3));
-        dateChooser.setDate((Date)tablaPartidos.getValueAt(i, 4));
+        partidoViejo.setTemporada((String)tablaPartidos.getValueAt(i, 0));
+        partidoViejo.setNojornada(Integer.valueOf(String.valueOf(tablaPartidos.getValueAt(i, 1))));
+        partidoViejo.setEquipolocal((String)tablaPartidos.getValueAt(i, 2));
+        partidoViejo.setEquipovisitante((String)tablaPartidos.getValueAt(i, 3));
+        partidoViejo.setFecha((Date)tablaPartidos.getValueAt(i, 4));
+        partidoViejo.setHora((Date)tablaPartidos.getValueAt(i, 5));
+        partidoViejo.setMarcadorlocal((int)tablaPartidos.getValueAt(i, 6));
+        partidoViejo.setMarcadorvisitante((int)tablaPartidos.getValueAt(i, 7));
         
-        spinnnerHora.setValue((Date)tablaPartidos.getValueAt(i, 5));
+        txtTemporada.setText(partidoViejo.getTemporada());
+        txtJornada.setText(String.valueOf(partidoViejo.getNojornada()));
+        comboEquipoLocal.setSelectedItem(partidoViejo.getEquipolocal());
+        comboEquipoVisitante.setSelectedItem(partidoViejo.getEquipovisitante());
+        dateChooser.setDate(partidoViejo.getFecha());
         
-        txtMarcadorLocal.setText(String.valueOf(tablaPartidos.getValueAt(i, 6)));
-        txtMarcadorVisitante.setText(String.valueOf(tablaPartidos.getValueAt(i, 7)));
+        spinnnerHora.setValue(partidoViejo.getHora());
+        
+        txtMarcadorLocal.setText(String.valueOf(partidoViejo.getMarcadorlocal()));
+        txtMarcadorVisitante.setText(String.valueOf(partidoViejo.getMarcadorvisitante()));
     }//GEN-LAST:event_tablaPartidosMouseClicked
 
     private void txtTemporadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTemporadaActionPerformed
